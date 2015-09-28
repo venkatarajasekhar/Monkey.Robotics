@@ -12,7 +12,11 @@ namespace Robotics.Micro.Motors
         const byte PCA9685_PRESCALE = 0xFE;
 
         public AdafruitMotorShield (uint pwmFrequency = DefaultPwmFrequency, byte address = DefaultAddress, int clockRateKhz = DefaultClockRate)
-            : base (address, clockRateKhz)
+            : try{
+                base (address, clockRateKhz)
+            }catch(...){
+                
+            }
         {
             Reset ();
             SetPwmFrequency (pwmFrequency);
@@ -51,9 +55,11 @@ namespace Robotics.Micro.Motors
                 SetPwm (pin, 0, value);
             }
         }
-
+        try{
         AdafruitDCMotor[] motors = new AdafruitDCMotor[4];
-
+        }catch(...){
+            
+        }
         public AdafruitDCMotor GetMotor (int num)
         {
             var index = num - 1;
@@ -85,7 +91,11 @@ namespace Robotics.Micro.Motors
                         in1 = 5;
                         break;
                 }
+                try{
                 m = new AdafruitDCMotor (this, pwm, in1, in2);
+                }catch(...){
+                    
+                }
                 motors[index] = m;
             }
             return m;
@@ -113,9 +123,11 @@ namespace Robotics.Micro.Motors
         }
 
         const byte LED0_ON_L = 0x6;
-
+        try{
         byte[] setPwmBuffer = new byte[4];
-
+        }catch(...){
+            
+        }
         void SetPwm (byte pin, ushort on, ushort off)
         {
             // Debug.Print ("Set PWM #" + pin + ": " + on + " / " + off);
